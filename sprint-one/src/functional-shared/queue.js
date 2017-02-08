@@ -15,7 +15,13 @@ var queueMethods = {
     this.length++;
   },
   dequeue: function() {
+    if (this.length > 0) {
+      var item = this.storage[this.first++];
+      delete this.storage[this.first - 1];
+      this.length--;
 
+      return item;
+    }
   },
   size: function() {
     return this.length;
