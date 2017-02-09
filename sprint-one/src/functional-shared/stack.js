@@ -1,11 +1,10 @@
+
 var Stack = function() {
   var stack = {};
 
   stack.storage = {};
   stack.length = 0;
-
-  extend(stack, stackMethods);
-
+  _.extend(stack, stackMethods);
   return stack;
 };
 
@@ -26,9 +25,4 @@ var stackMethods = {
   }
 };
 
-var extend = function(to, from) {
-  for (var key in from) {
-    to[key] = from[key];
-  }
-};
 
