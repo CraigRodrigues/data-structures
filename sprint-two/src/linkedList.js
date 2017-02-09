@@ -8,10 +8,17 @@ var LinkedList = function() {
     list.tail = node;
     if (list.head === null) {
       list.head = node;
+    } else if (list.head.next === null) {
+      list.head.next = node;
     }
   };
 
   list.removeHead = function() {
+    var temp = list.head;
+    if (list.head.next !== null) {
+      list.head = list.head.next;
+    }
+    delete temp;
   };
 
   list.contains = function(target) {
