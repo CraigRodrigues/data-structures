@@ -24,8 +24,16 @@ var BSTMethods = {
       }
     }
   },
-  contains: function() {
+  contains: function(value) {
+    if (this.value === value) {
+      return true;
+    } else if (this.right && value > this.value) {
+      return this.right.contains(value);
+    } else if (this.left && value < this.value) {
+      return this.left.contains(value);
+    }
 
+    return false;
   },
   depthFirstLog: function() {
 
