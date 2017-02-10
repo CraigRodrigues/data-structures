@@ -68,4 +68,12 @@ describe('linkedList', function() {
     expect(linkedList.insertAfter.bind(linkedList, [5, 2])).to.throw(Error);
   });
 
+  it('should update tail when inserting at the end', function() {
+    linkedList.addToTail(1);
+    linkedList.addToTail(2);
+    linkedList.addToTail(4);
+    linkedList.insertAfter(4, 5);
+    expect(linkedList.tail.value).to.equal(5);
+  });
+
 });
