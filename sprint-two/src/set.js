@@ -22,11 +22,16 @@ setPrototype.remove = function(item) {
   }
 };
 
+setPrototype.clear = function() {
+  this._storage = {};
+};
+
 /*
  * Complexity: What is the time complexity of the above functions?
  *
  * Add: O(1)
  * Contains: O(1)
  * Remove: O(1)
+ * Clear: O(1)
  *
  */
