@@ -52,4 +52,20 @@ describe('linkedList', function() {
   });
 
   // add more tests here to test the functionality of linkedList
+
+  it('should insert a new node after the value passed in', function() {
+    linkedList.addToTail(1);
+    linkedList.addToTail(2);
+    linkedList.addToTail(4);
+    linkedList.insertAfter(2, 3);
+    expect(linkedList.head.next.next.value).to.equal(3);
+  });
+
+  it('should throw error when no target found when inserting', function() {
+    linkedList.addToTail(1);
+    linkedList.addToTail(2);
+    linkedList.addToTail(4);
+    expect(linkedList.insertAfter.bind(linkedList, [5, 2])).to.throw(Error);
+  });
+
 });

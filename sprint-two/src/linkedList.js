@@ -32,6 +32,21 @@ var LinkedList = function() {
     return false;
   };
 
+  list.insertAfter = function(target, value) {
+    var node = new Node(value);
+    var currentNode = this.head;
+    while (currentNode) {
+      if (currentNode.value === target) {
+        node.next = currentNode.next;
+        currentNode.next = node;
+        return;
+      }
+      currentNode = currentNode.next;
+    }
+
+    throw new Error('target not found');
+  };
+
   return list;
 };
 
