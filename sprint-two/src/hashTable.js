@@ -7,37 +7,45 @@ var HashTable = function() {
 
 HashTable.prototype.insert = function(k, v) {
   var index = getIndexBelowMaxForKey(k, this._limit);
-  var value = this._storage.get(index);
-  var obj = {};
-  obj[k] = v;
-  if (value === undefined) {
-    this._storage.set(index, obj);
+  var bucket = this._storage.get(index);
+  var arr = [k, v];
+  if (bucket === undefined) {
+    this._storage.set(index, [arr]);
   } else {
-    this._storage.set(index, _.extend(value, obj));
+    for (var i = 0; i < bucket.length; i++) {
+      if (bucket[i][0] === k) {
+        bucket[i][1] = v;
+      }
+    }
+    bucket.push(arr);
   }
 };
 
 HashTable.prototype.retrieve = function(k) {
   var index = getIndexBelowMaxForKey(k, this._limit);
-  var value = this._storage.get(index);
-
-  if (value.hasOwnProperty(k)) {
-    return value[k];
+  var bucket = this._storage.get(index);
+  for (var i = 0; i < bucket.length; i++) {
+    if (bucket[i][0] === k) {
+      return bucket[i][1];
+    }
   }
 };
 
 HashTable.prototype.remove = function(k) {
   var index = getIndexBelowMaxForKey(k, this._limit);
-  var value = this._storage.get(index);
-  delete value[k];
+  var bucket = this._storage.get(index);
+  for (var i = 0; i < bucket.length; i++) {
+    if (bucket[i][0] === k) {
+      bucket.splice(i, 1);
+    }
+  }
 };
-
 
 
 /*
  * Complexity: What is the time complexity of the above functions?
  *
- * insert: O(1)
+ * insert: closer to O(1) on average, O(n) worst case
  * retrieve: O(1)
  * remove: O(1)
  *
