@@ -41,4 +41,18 @@ describe('tree', function() {
     expect(tree.contains(8)).to.equal(true);
   });
 
+  // new tests
+  it('should return the correct depth', function() {
+    tree.addChild(5);
+    tree.children[0].addChild(4);
+    tree.children[0].addChild(6);
+    tree.children[0].children[0].addChild(3);
+    expect(tree.getDepth(tree)).to.equal(4);
+
+    tree.children[0].children[1].addChild(7);
+    tree.children[0].children[1].children[0].addChild(9);
+    expect(tree.getDepth(tree)).to.equal(5);
+
+  });
+
 });

@@ -28,6 +28,25 @@ treeMethods.contains = function(target) {
   return false;
 };
 
+treeMethods.getDepth = function(tree) {
+  var maxDepth = 1;
+
+  var checkDepth = function(node, currentDepth) {
+
+    if (node.children.length > 0) {
+      currentDepth++;
+      for (var i = 0; i < node.children.length; i++) {
+        checkDepth(node.children[i], currentDepth);
+      }
+    } else if (currentDepth > maxDepth) {
+      maxDepth = currentDepth;
+    }
+  };
+  
+  checkDepth(tree, 1);
+  return maxDepth;
+};
+
 
 
 /*
