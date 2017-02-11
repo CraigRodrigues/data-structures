@@ -14,12 +14,6 @@ HashTable.prototype.insert = function(k, v) {
     list.addToTail(arr);
     this._storage.set(index, list);
   } else {
-    // for (var i = 0; i < bucket.length; i++) {
-    //   if (bucket[i][0] === k) {
-    //     bucket[i][1] = v;
-    //   }
-    // }
-    // bucket.push(arr);
     var node = bucket.head;
     while (node) {
       if (node.value[0] === k) {
@@ -28,7 +22,6 @@ HashTable.prototype.insert = function(k, v) {
       }
       node = node.next;
     }
-
     bucket.addToTail(arr);
   }
 };

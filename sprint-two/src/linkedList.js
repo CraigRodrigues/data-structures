@@ -80,4 +80,5 @@ var Node = function(value) {
  * removeHead: O(1)
  * contains: O(n)
  * insertAfter: O(n)
+ * remove: O(n)
  */
