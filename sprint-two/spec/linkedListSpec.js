@@ -76,4 +76,13 @@ describe('linkedList', function() {
     expect(linkedList.tail.value).to.equal(5);
   });
 
+  it('should remove any node', function() {
+    linkedList.addToTail(1);
+    linkedList.addToTail(2);
+    linkedList.addToTail(4);
+    linkedList.remove(2);
+
+    expect(linkedList.contains(2)).to.equal(false);
+  });
+
 });

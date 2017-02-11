@@ -14,8 +14,10 @@ var LinkedList = function() {
     var tempVal = temp.value;
     if (list.head.next !== null) {
       list.head = list.head.next;
+    } else {
+      list.head = null;
     }
-    delete temp;
+  
     return tempVal;
   };
 
@@ -47,6 +49,19 @@ var LinkedList = function() {
     throw new Error('target not found');
   };
 
+  list.remove = function(value) {
+    var currNode = this.head;
+    while (currNode) {
+      if (currNode.value === value) {
+        this.removeHead(currNode);
+      } else if (currNode.next && currNode.next.value === value) {
+        currNode.next = currNode.next.next;
+        return;
+      }
+      currNode = currNode.next;
+    }
+  };
+
   return list;
 };
 
@@ -64,4 +79,5 @@ var Node = function(value) {
  * addToTail: O(1)
  * removeHead: O(1)
  * contains: O(n)
+ * insertAfter: O(n)
  */
