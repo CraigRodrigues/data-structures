@@ -43,7 +43,22 @@ var BSTMethods = {
     if (this.right) {
       this.right.depthFirstLog(cb);
     }
-  }
+  },
+  breadthFirstLog: function(cb) {
+    var queue = [];
+    queue.push(this);
+
+    while (queue.length > 0) {
+      var currentNode = queue.shift();
+      cb(currentNode.value);
+      if (currentNode.left) {
+        queue.push(currentNode.left);
+      }
+      if (currentNode.right) {
+        queue.push(currentNode.right);
+      }
+    }
+  } 
 };
 
 /*
@@ -51,4 +66,5 @@ var BSTMethods = {
  * insert: O(log(n))
  * contains: O(log(n))
  * depthFirstLog: O(n)
+ * breadthFirstLog: O(n)
  */
