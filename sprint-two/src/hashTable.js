@@ -25,7 +25,7 @@ HashTable.prototype.insert = function(k, v) {
     bucket.addToTail(arr);
   }
   if (this._bucketsFilled >= 0.75 * this._limit) {
-    this.resizeHashTable();
+    this.doubleSize();
   }
 };
 
@@ -54,21 +54,13 @@ HashTable.prototype.remove = function(k) {
   }
 };
 
-HashTable.prototype.resizeHashTable = function() {
-  // this._bucketsFilled = 0;
-  // var newHash = LimitedArray(this._limit);
-  debugger;
+HashTable.prototype.doubleSize = function() {
   var newHashTable = new HashTable(this._limit * 2);
-  // newHashTable._limit = this._limit;
 
   this._storage.each(function(bucket) {
     if (bucket) {
-      debugger;
       var node = bucket.head;
       while (node) {
-        // var index = getIndexBelowMaxForKey(node.value[0], this._limit);
-        // newHash.insert(index, node.value[1]);
-
         newHashTable.insert(node.value[0], node.value[1]);
         node = node.next;
       }
@@ -87,7 +79,7 @@ HashTable.prototype.resizeHashTable = function() {
  * insert: closer to O(1) on average, O(n) worst case
  * retrieve: O(1)
  * remove: O(1)
- *
+ * doubleSize: O(n)
  */
 
 

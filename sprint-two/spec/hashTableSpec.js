@@ -57,7 +57,6 @@ describe('hashTable', function() {
     expect(Array.isArray(bucket)).to.equal(false);
     expect(bucket).to.have.property('head');
     expect(bucket).to.have.property('tail');
-    // expect(hashTable.retrieve).to.be.a('function');
   });
 
   // (Advanced! Remove the extra "x" when you want the following tests to run)
