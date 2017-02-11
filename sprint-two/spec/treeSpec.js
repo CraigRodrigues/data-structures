@@ -61,13 +61,26 @@ describe('tree', function() {
     tree.children[0].addChild(4);
     tree.children[0].addChild(6);
     tree.children[0].children[0].addChild(3);
-    // tree.removeFromParent(6);
-    // expect(tree.getDepth(tree)).to.equal(4);
+    var removed = tree.removeFromParent(6);
+    expect(removed.parent).to.equal(null);
+  });
 
+  it('should return excommunicated tree', function() {
+    tree.addChild(5);
+    tree.children[0].addChild(4);
+    tree.children[0].addChild(6);
+    tree.children[0].children[0].addChild(3);
+    var removed = tree.removeFromParent(6);
+    expect(removed.value).to.equal(6);
   });
 
   it('should remove association with child from parent on remove', function() {
-
+    tree.addChild(5);
+    tree.children[0].addChild(4);
+    tree.children[0].addChild(6);
+    tree.children[0].children[0].addChild(3);
+    tree.removeFromParent(6);
+    expect(tree.contains(6)).to.equal(false);
   });
 
   it('should traverse breadth first', function() {

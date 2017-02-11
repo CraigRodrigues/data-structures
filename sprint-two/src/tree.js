@@ -62,6 +62,22 @@ treeMethods.traverse = function(cb) {
   }
 };
 
+treeMethods.removeFromParent = function(target) {
+  var foundNode;
+  this.traverse(function(node) {
+    if (node.value === target) {
+      debugger;
+      node.parent.children = node.parent.children.filter(function(child) {
+        return child !== target;
+      });
+      node.parent = null;
+
+      foundNode = node;
+    }
+  });
+  return foundNode;
+};
+
 
 
 /*
