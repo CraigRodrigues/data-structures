@@ -2,8 +2,8 @@ var Tree = function(value) {
   var newTree = Object.create(treeMethods);
   newTree.value = value;
 
-  // your code here
-  newTree.children = [];  // fix me
+  newTree.parent = null;
+  newTree.children = [];
 
   return newTree;
 };
@@ -11,7 +11,9 @@ var Tree = function(value) {
 var treeMethods = {};
 
 treeMethods.addChild = function(value) {
-  this.children.push(Tree(value));
+  var child = Tree(value);
+  child.parent = this;
+  this.children.push(child);
 };
 
 treeMethods.contains = function(target) {
@@ -45,6 +47,19 @@ treeMethods.getDepth = function(tree) {
   
   checkDepth(tree, 1);
   return maxDepth;
+};
+
+treeMethods.traverse = function(cb) {
+  var queue = [this];
+
+  while (queue.length > 0) {
+    var currentNode = queue.shift();
+    cb(currentNode);
+
+    for (var i = 0; i < currentNode.children.length; i++) {
+      queue.push(currentNode.children[i]);
+    }
+  }
 };
 
 

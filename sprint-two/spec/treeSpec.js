@@ -5,10 +5,12 @@ describe('tree', function() {
     tree = Tree();
   });
 
-  it('should have methods named "addChild" and "contains", and a property named "value"', function() {
+  it('should have methods named "addChild" and "contains", and a property named "value" and "parent"', function() {
     expect(tree.addChild).to.be.a('function');
     expect(tree.contains).to.be.a('function');
     expect(tree.hasOwnProperty('value')).to.equal(true);
+    expect(tree.hasOwnProperty('parent')).to.equal(true);
+
   });
 
   it('should add children to the tree', function() {
@@ -52,7 +54,32 @@ describe('tree', function() {
     tree.children[0].children[1].addChild(7);
     tree.children[0].children[1].children[0].addChild(9);
     expect(tree.getDepth(tree)).to.equal(5);
+  });
+
+  it('should remove association with parent on remove', function() {
+    tree.addChild(5);
+    tree.children[0].addChild(4);
+    tree.children[0].addChild(6);
+    tree.children[0].children[0].addChild(3);
+    // tree.removeFromParent(6);
+    // expect(tree.getDepth(tree)).to.equal(4);
 
   });
 
+  it('should remove association with child from parent on remove', function() {
+
+  });
+
+  it('should traverse breadth first', function() {
+    tree.addChild(5);
+    tree.children[0].addChild(4);
+    tree.children[0].addChild(6);
+    tree.children[0].children[0].addChild(3);
+    var result = [];
+    tree.traverse(function(node) {
+      result.push(node.value);
+    });
+    expect(result).to.eql([undefined, 5, 4, 6, 3]);
+
+  });
 });
