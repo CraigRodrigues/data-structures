@@ -25,19 +25,21 @@ HashTable.prototype.insert = function(k, v) {
     bucket.addToTail(arr);
   }
   if (this._bucketsFilled >= 0.75 * this._limit) {
-    this.doubleSize();
+    this.resize(this._limit * 2);
   }
 };
 
 HashTable.prototype.retrieve = function(k) {
   var index = getIndexBelowMaxForKey(k, this._limit);
   var bucket = this._storage.get(index);
-  var node = bucket.head;
-  while (node) {
-    if (node.value[0] === k) {
-      return node.value[1];
+  if (bucket) {
+    var node = bucket.head;
+    while (node) {
+      if (node.value[0] === k) {
+        return node.value[1];
+      }
+      node = node.next;
     }
-    node = node.next;
   }
 };
 
@@ -48,14 +50,18 @@ HashTable.prototype.remove = function(k) {
   while (node) {
     if (node.value[0] === k) {
       bucket.remove(node.value);
+      this._bucketsFilled--;
+      if (this._bucketsFilled <= 0.25 * this._limit) {
+        this.resize(this._limit / 2);
+      }
       return;
     }
     node = node.next;
   }
 };
 
-HashTable.prototype.doubleSize = function() {
-  var newHashTable = new HashTable(this._limit * 2);
+HashTable.prototype.resize = function(limit) {
+  var newHashTable = new HashTable(limit);
 
   this._storage.each(function(bucket) {
     if (bucket) {
@@ -79,7 +85,7 @@ HashTable.prototype.doubleSize = function() {
  * insert: closer to O(1) on average, O(n) worst case
  * retrieve: O(1)
  * remove: O(1)
- * doubleSize: O(n)
+ * resize: O(n)
  */
 
 
