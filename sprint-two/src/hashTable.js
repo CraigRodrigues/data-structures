@@ -1,7 +1,6 @@
-
-
-var HashTable = function() {
-  this._limit = 8;
+var HashTable = function(limit) {
+  this._limit = limit || 8;
+  this._bucketsFilled = 0;
   this._storage = LimitedArray(this._limit);
 };
 
@@ -13,6 +12,7 @@ HashTable.prototype.insert = function(k, v) {
     var list = LinkedList();
     list.addToTail(arr);
     this._storage.set(index, list);
+    this._bucketsFilled++;
   } else {
     var node = bucket.head;
     while (node) {
@@ -23,6 +23,9 @@ HashTable.prototype.insert = function(k, v) {
       node = node.next;
     }
     bucket.addToTail(arr);
+  }
+  if (this._bucketsFilled >= 0.75 * this._limit) {
+    this.resizeHashTable();
   }
 };
 
@@ -49,6 +52,32 @@ HashTable.prototype.remove = function(k) {
     }
     node = node.next;
   }
+};
+
+HashTable.prototype.resizeHashTable = function() {
+  // this._bucketsFilled = 0;
+  // var newHash = LimitedArray(this._limit);
+  debugger;
+  var newHashTable = new HashTable(this._limit * 2);
+  // newHashTable._limit = this._limit;
+
+  this._storage.each(function(bucket) {
+    if (bucket) {
+      debugger;
+      var node = bucket.head;
+      while (node) {
+        // var index = getIndexBelowMaxForKey(node.value[0], this._limit);
+        // newHash.insert(index, node.value[1]);
+
+        newHashTable.insert(node.value[0], node.value[1]);
+        node = node.next;
+      }
+    }
+  });
+
+  this._storage = newHashTable._storage;
+  this._limit = newHashTable._limit;
+  this._bucketsFilled = newHashTable._bucketsFilled;
 };
 
 
