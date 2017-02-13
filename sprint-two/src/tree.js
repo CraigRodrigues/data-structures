@@ -44,7 +44,7 @@ treeMethods.getDepth = function(tree) {
       maxDepth = currentDepth;
     }
   };
-  
+
   checkDepth(tree, 1);
   return maxDepth;
 };
@@ -66,8 +66,9 @@ treeMethods.removeFromParent = function(target) {
   var foundNode;
   this.traverse(function(node) {
     if (node.value === target) {
+      debugger;
       node.parent.children = node.parent.children.filter(function(child) {
-        return child.value !== target;
+        return child !== target;
       });
       node.parent = null;
 
@@ -76,7 +77,6 @@ treeMethods.removeFromParent = function(target) {
   });
   return foundNode;
 };
-
 
 
 /*
