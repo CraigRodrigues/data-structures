@@ -6,8 +6,8 @@ describe('prefixTree', function() {
   });
 
   it('should be awesome', function() {
-    expect(1).to.equal(true);
-  });  
+    expect(true).to.equal(true);
+  });
 
   it('should have methods named "insert" and "contains", "remove" and property "isWord", "value", and "children"', function() {
     expect(prefixTree.insert).to.be.a('function');
